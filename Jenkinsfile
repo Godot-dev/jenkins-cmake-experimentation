@@ -1,7 +1,9 @@
 pipeline {
     agent {
-        docker { image 'conanio/gcc10'}
-        args ''
+        docker { image 'conanio/gcc10'
+                 args ''
+        }
+
     }
     parameters {
         string(name: 'a', defaultValue: '9')
