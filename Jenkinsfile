@@ -16,12 +16,9 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'pwd'
-                sh 'mkdir /build'
-                dir('/build'){
-                    sh 'pwd'
-                    sh "cmake -S .. -B ."
-                    sh 'make'
-                }
+                sh 'pwd'
+                sh "cmake -S .. -B ."
+                sh 'make'
             }
         }
 //         stage('Test'){
