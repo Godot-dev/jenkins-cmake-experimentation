@@ -12,18 +12,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir("${env.WORKSPACE}/jenkins-cmake-experimentation@tmp")
                 sh 'pwd'
-                sh 'mkdir build'
-                sh 'cd build'
-                sh 'cmake -S ..'
+                sh 'mkdir /tmp/build'
+                dir('/tmp/build')
+                sh 'pwd'
+                sh "cmake -S ${env.WORKSPACE}/jenkins-cmake-experimentation -B ."
                 sh 'make'
             }
         }
         stage('Test'){
             steps{
                 sh 'pwd'
-                dir("${env.WORKSPACE}/jenkins-cmake-experimentation@tmp/build")
+                dir('/tmp/build')
+                sh 'pwd'
                 sh 'ctest -VV > logTests.txt'
                 archiveArtifacts artifacts: 'logTest.txt', followSymlinks: false
             }
