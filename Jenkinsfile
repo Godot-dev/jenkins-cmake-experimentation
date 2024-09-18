@@ -31,10 +31,10 @@ pipeline {
                 archiveArtifacts artifacts: 'logs.txt', followSymlinks: false
             }
         }
-        post {
-            always {
-                junit allowEmptyResults: true, testResults: 'logTests.xml'
-            }
+    }
+    post {
+        always {
+        junit allowEmptyResults: true, testResults: 'logTests.xml'
         }
     }
 }
