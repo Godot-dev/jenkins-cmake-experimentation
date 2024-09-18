@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'gmao/ubuntu20-cmake'}
+        docker { image 'conanio/gcc10'}
     }
     parameters {
         string(name: 'a', defaultValue: '9')
@@ -22,6 +22,7 @@ pipeline {
         stage('Test'){
             steps{
                 sh 'pwd'
+                dir("${env.WORKSPACE}/jenkins-cmake-experimentation/build")
                 sh 'ctest -VV > logTests.txt'
                 archiveArtifacts artifacts: 'logTest.txt', followSymlinks: false
             }
@@ -29,6 +30,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 sh 'pwd'
+                dir("${env.WORKSPACE}/jenkins-cmake-experimentation/build")
                 sh "./Tutorial ${params.a} > log.txt"
                 archiveArtifacts artifacts: 'log.txt', followSymlinks: false
             }
