@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        docker { image 'conanio/gcc10'
-                 args ''
-        }
+        docker { image 'godot-cmake'}
 
     }
     parameters {
@@ -23,8 +21,7 @@ pipeline {
         stage('Test'){
             steps{
                 sh 'pwd'
-                sh 'ctest -VV > logTests.txt'
-                archiveArtifacts artifacts: 'logTests.txt', followSymlinks: false
+                sh 'ctest --output-junit logTests.xml'
             }
         }
         stage('Deploy'){
@@ -32,6 +29,11 @@ pipeline {
                 sh 'pwd'
                 sh "./Tutorial ${params.a} > logs.txt"
                 archiveArtifacts artifacts: 'logs.txt', followSymlinks: false
+            }
+        }
+        post {
+            always {
+                junit allowEmptyResults: true, testResults: 'logTests.xml'
             }
         }
     }
