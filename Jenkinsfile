@@ -16,8 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'pwd'
-                sh 'pwd'
-                sh "cmake -S .. -B ."
+                sh "cmake -S . -B ."
                 sh 'make'
             }
         }
