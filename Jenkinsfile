@@ -24,14 +24,14 @@ pipeline {
             steps{
                 sh 'pwd'
                 sh 'ctest -VV > logTests.txt'
-                archiveArtifacts artifacts: 'logTest.txt', followSymlinks: false
+                archiveArtifacts artifacts: 'logTests.txt', followSymlinks: false
             }
         }
         stage('Deploy'){
             steps{
                 sh 'pwd'
-                sh "./Tutorial ${params.a} > log.txt"
-                archiveArtifacts artifacts: 'log.txt', followSymlinks: false
+                sh "./Tutorial ${params.a} > logs.txt"
+                archiveArtifacts artifacts: 'logs.txt', followSymlinks: false
             }
         }
     }
